@@ -8,14 +8,14 @@ const Cards = ({ category, searchQuery }) => {
   const [articlesPerPage] = useState(12);
   const [favorites, setFavorites] = useState([]);
 
-  const apiKey = "83f4ed4d540b49ecad4c19781177b408";
+  const API_KEY = "83f4ed4d540b49ecad4c19781177b408";
 
   const fetchArticles = async () => {
     try {
       setLoading(true);
       const url = searchQuery
-        ? `https://newsapi.org/v2/everything?q=${searchQuery}&apiKey=${apiKey}`
-        : `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${apiKey}`;
+        ? `https://newsapi.org/v2/everything?q=${searchQuery}&apiKey=${API_KEY}`
+        : `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`;
       const response = await axios.get(url);
       setArticles(response.data.articles);
     } catch (error) {
@@ -27,7 +27,7 @@ const Cards = ({ category, searchQuery }) => {
 
   useEffect(() => {
     fetchArticles();
-    // Load favorites from local storage on component mount
+    
     const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
     setFavorites(storedFavorites);
   }, [category, searchQuery]);
