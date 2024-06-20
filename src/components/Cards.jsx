@@ -8,7 +8,6 @@ const Cards = ({ category, searchQuery }) => {
   const [articlesPerPage] = useState(12);
   const [favorites, setFavorites] = useState([]);
 
-
   const API_KEY = import.meta.env.VITE_API_KEY;
 
   const fetchArticles = async () => {
@@ -17,7 +16,12 @@ const Cards = ({ category, searchQuery }) => {
       const url = searchQuery
         ? `https://newsapi.org/v2/everything?q=${searchQuery}&apiKey=${API_KEY}`
         : `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`;
-      const response = await axios.get(url);
+        
+        const response = await axios.get(url, {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
       setArticles(response.data.articles);
     } catch (error) {
       console.error('Error fetching articles:', error);
