@@ -8,7 +8,8 @@ const Cards = ({ category, searchQuery }) => {
   const [articlesPerPage] = useState(12);
   const [favorites, setFavorites] = useState([]);
 
-  const API_KEY = "83f4ed4d540b49ecad4c19781177b408";
+
+  const API_KEY = import.meta.env.VITE_API_KEY;
 
   const fetchArticles = async () => {
     try {
